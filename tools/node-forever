@@ -1,0 +1,23 @@
+#! /bin/sh -e
+
+# Startup script for forever
+#
+# To run this, you will need to first install forever:
+#   sudo npm install -g forever
+#
+
+set -e
+
+PATH=/usr/local/lib/node_modules/forever/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin #this is specific to Ubuntu
+DAEMON=/var/www/node/src/webserver.js #which app JS file to run as server
+
+case "$1" in
+  start) forever start $DAEMON ;;
+  stop)  forever stop  $DAEMON ;;
+  force-reload|restart)
+    forever restart $DAEMON ;;
+  *) echo "Usage: /etc/init.d/node {start|stop|restart|force-reload}"
+     exit 1
+     ;;
+esac
+exit 0
